@@ -11,7 +11,8 @@ import i18n from './i18n'
 import { createHead } from '@vueuse/head'
 import Toast, { PluginOptions } from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
-import axios from 'axios'
+import { useDark } from '@vueuse/core'
+useDark();
 
 // Types
 import type { App } from 'vue'

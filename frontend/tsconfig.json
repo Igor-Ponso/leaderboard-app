@@ -24,9 +24,6 @@
     "skipLibCheck": true,
     "noEmit": true,
     "types": [
-      "vite-plugin-pages/client",
-      "vite/client",
-      "vite-plugin-vue-layouts-next/client",
     ]
   },
   "vueCompilerOptions": {
@@ -36,7 +33,8 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
+    "types"
   ],
   "exclude": [
     "dist",

@@ -22,30 +22,6 @@ const currentPage = computed(() => {
   return matchedPage
 })
 
-const breadcrumbs = computed(() => {
-  const pathArray = route.path.split('/').filter((p) => p)
-
-  const breadcrumbArray = pathArray.map((_, index) => {
-    const fullPath = '/' + pathArray.slice(0, index + 1).join('/')
-
-    // Try to find a matching page in the pages config
-    const page = Object.values(pages).find((page) => {
-      const pathRegex = new RegExp(
-        '^' +
-          page.path.replace(/:[^/]+/g, '[^/]+') + // Replace :params with regex
-          '$',
-      )
-      return pathRegex.test(fullPath) // Test if it matches
-    })
-
-    return {
-      title: page?.title || pathArray[index], // Use title if matched, else use path
-      path: fullPath,
-    }
-  })
-
-  return breadcrumbArray
-})
 </script>
 
 <template>

@@ -12,6 +12,18 @@ export const pages: Pages = {
     onMenu: true,
   },
 
+  login: {
+    path: '/auth/login',
+    title: 'Login',
+    onMenu: false,
+  },
+
+  register: {
+    path: '/auth/register',
+    title: 'Criar Conta',
+    onMenu: false,
+  },
+
   welcome: {
     path: '/welcome',
     title: 'Dashboard',
@@ -25,14 +37,5 @@ export const pages: Pages = {
 }
 
 export const endpoints = {
-  permissions: {
-    get: `${baseApiUrl}/permissoes`,
-  },
 
-  profiles: {
-    get: `${baseApiUrl}/perfis`,
-    delete: (hash: string) => `${baseApiUrl}/perfis/${hash}`,
-    create: `${baseApiUrl}/perfis`,
-    update: (hash: string) => `${baseApiUrl}/perfis/${hash}`,
-  },
 }

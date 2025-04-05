@@ -13,7 +13,7 @@ const router = useRouter()
     <div class="page-not-found__footer">
       <h2>Page Not Found</h2>
       <el-button @click="router.push(pages.welcome.path)">
-        Voltar para Dashboard
+        Take me home
       </el-button>
     </div>
   </el-container>

@@ -1,11 +1,14 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { pages } from '@/api/paths'
+import heroImage from '@/assets/illustrations/welcome-hero.png'
 
 const router = useRouter()
 
-const goToLogin = () => router.push('/login')
-const goToRegister = () => router.push('/register')
+const goToLogin = () => router.push(pages.login.path)
+const goToRegister = () => router.push(pages.register.path)
 </script>
+
 
 <template>
   <section
@@ -49,10 +52,10 @@ const goToRegister = () => router.push('/register')
         :md="12"
         class="flex justify-center items-center mt-8 md:mt-0"
       >
-        <img
-          src="@/assets/illustrations/welcome-hero.png"
+        <el-image
+          :src="heroImage"
           alt="Pixel hero"
-          class="w-full max-w-[360px] h-auto aspect-[4/5] rounded object-contain pixelated"
+          class="w-full max-w-[560px] h-auto aspect-[4/5] rounded object-contain pixelated"
         />
       </el-col>
     </el-row>
