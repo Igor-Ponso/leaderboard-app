@@ -1,0 +1,26 @@
+.vite-ssg-temp
+
+# lock
+yarn.lock
+package-lock.json
+pnpm-lock.yaml
+bun.lockb
+/html
+
+*.log
+
+node_modules
+.DS_Store
+dist
+dist-ssr
+*.local
+
+coverage
+
+# Ignore .env file for all branches
+.env
+
+# Except for the 'main' branch
+!/.env
+
+.npmrc

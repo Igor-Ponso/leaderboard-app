@@ -1,0 +1,18 @@
+{
+  "app": {
+    "title": "Mon application",
+    "description": "Ceci est une application d'exemple."
+  },
+  "user": {
+    "welcome": "Bienvenue, {{name}} !",
+    "logout": "Déconnexion"
+  },
+  "error": {
+    "not_found": "Page non trouvée",
+    "server_error": "Erreur du serveur"
+  },
+  "button": {
+    "submit": "Soumettre",
+    "cancel": "Annuler"
+  }
+}
