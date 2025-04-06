@@ -5,8 +5,8 @@ import { baseApiUrl } from './config'
 export const rootPaths = ['/home']
 
 export const pages: Pages = {
-  home: {
-    path: '/home',
+  dashboard: {
+    path: 'auth/dashboard',
     title: 'Dashboard',
     icon: 'house',
     onMenu: true,

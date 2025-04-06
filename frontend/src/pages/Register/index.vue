@@ -52,7 +52,7 @@ const handleSubmit = async () => {
 
     try {
       await auth.register(form)
-      router.push(pages.home.path)
+      router.push(pages.dashboard.path)
     } catch (err) {
       // A toast já será disparada no catch da store
     }

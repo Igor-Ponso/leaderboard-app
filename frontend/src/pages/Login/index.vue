@@ -28,7 +28,7 @@ const handleSubmit = async () => {
   formRef.value?.validate(async (valid) => {
     if (valid) {
         await authStore.login(form)
-        router.push(pages.home.path)
+        router.push(pages.dashboard.path)
     }
   })
 }
