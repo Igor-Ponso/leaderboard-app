@@ -13,13 +13,13 @@ export const pages: Pages = {
   },
 
   login: {
-    path: '/auth/login',
+    path: '/login',
     title: 'Login',
     onMenu: false,
   },
 
   register: {
-    path: '/auth/register',
+    path: '/register',
     title: 'Criar Conta',
     onMenu: false,
   },
@@ -37,5 +37,14 @@ export const pages: Pages = {
 }
 
 export const endpoints = {
-
+  auth: {
+    register: `${baseApiUrl}/register`,
+    login: `${baseApiUrl}/login`,
+    logout: `${baseApiUrl}/logout`,
+    forgotPassword: `${baseApiUrl}/forgot-password`,
+    resetPassword: `${baseApiUrl}/reset-password`,
+    sendVerification: `${baseApiUrl}/email/verification-notification`,
+    verifyEmail: (id: number, hash: string) =>
+      `${baseApiUrl}/verify-email/${id}/${hash}`,
+  },
 }

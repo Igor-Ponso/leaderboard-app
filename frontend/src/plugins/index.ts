@@ -12,6 +12,7 @@ import { createHead } from '@vueuse/head'
 import Toast, { PluginOptions } from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 import { useDark } from '@vueuse/core'
+
 useDark();
 
 // Types

@@ -84,9 +84,11 @@ export default defineConfig({
     vueDevTools(),
   ],
   server: {
-    headers: {
-      //'Content-Security-Policy': "frame-ancestors 'self' https://idp.cds.fullstackead.com",
-      'Content-Security-Policy': "frame-ancestors 'self' http://localhost:8080",
+    host: 'localhost',
+    port: 3000,
+    cors: {
+      origin: 'http://localhost:5000',
+      credentials: true,
     },
   },
   build: {
