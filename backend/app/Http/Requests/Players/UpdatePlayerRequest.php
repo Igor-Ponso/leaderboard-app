@@ -16,13 +16,9 @@ class UpdatePlayerRequest extends FormRequest
     {
         return [
             'name' => ['sometimes', 'string', 'max:255'],
-            'email' => [
-                'nullable',
-                'email',
-                Rule::unique('players', 'email')->ignore($this->player->id),
-            ],
             'birth_date' => ['sometimes', 'date'],
             'score' => ['nullable', 'integer', 'min:0'],
+            'address' => ['nullable', 'string'],
         ];
     }
 }

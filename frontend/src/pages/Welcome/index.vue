@@ -22,7 +22,7 @@ const goToRegister = () => router.push(pages.register.path)
         <p class="pixel-font text-[clamp(1rem,3.5vw,1.25rem)] text-[#f0f0f0] font-mono">
           Inspired by retro games. Built for modern challenges.
         </p>
-
+        
         <div class="flex gap-4 justify-center md:justify-start flex-wrap">
           <el-button
             class="pixel-font"

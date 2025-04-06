@@ -6,9 +6,16 @@ export const rootPaths = ['/home']
 
 export const pages: Pages = {
   dashboard: {
-    path: 'auth/dashboard',
+    path: '/auth/dashboard',
     title: 'Dashboard',
     icon: 'house',
+    onMenu: true,
+  },
+
+  players: {
+    path: '/auth/players',
+    title: 'Players',
+    icon: 'user',
     onMenu: true,
   },
 
@@ -46,5 +53,13 @@ export const endpoints = {
     sendVerification: `${baseApiUrl}/email/verification-notification`,
     verifyEmail: (id: number, hash: string) =>
       `${baseApiUrl}/verify-email/${id}/${hash}`,
+  },
+
+  players: {
+    get: `${baseApiUrl}/api/players`,
+    show: (hash: string) => `${baseApiUrl}/api/players/${hash}`,
+    create: `${baseApiUrl}/api/players`,
+    update: (hash: string) => `${baseApiUrl}/api/players/${hash}`,
+    delete: (hash: string) => `${baseApiUrl}/api/players/${hash}`,
   },
 }

@@ -18,9 +18,9 @@ class PlayerFactory extends Factory
     {
         return [
             'name' => $this->faker->name,
-            'email' => $this->faker->unique()->safeEmail,
             'birth_date' => $this->faker->date(),
-            'score' => $this->faker->numberBetween(0, 100),
+            'score' => 0,
+            'address' => $this->faker->address,
         ];
     }
 }

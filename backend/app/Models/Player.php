@@ -14,12 +14,33 @@ class Player extends Model
     protected $fillable = [
         'name',
         'hash',
-        'email',
         'birth_date',
         'score',
+        'address',
     ];
 
     protected $casts = [
         'birth_date' => 'date',
     ];
+
+    /**
+     * Accessors and Mutators
+     * 
+     * @var string | null
+     */
+    public function getBirthDateAttribute($value): string|null
+    {
+        if (!$value) {
+            return null;
+        }
+
+        // verify if the value is already a Carbon instance
+        if ($value instanceof \Illuminate\Support\Carbon) {
+            return $value->format('d/m/Y');
+        }
+
+        // if not, parse the date and format it
+        return \Illuminate\Support\Carbon::parse($value)->format('d/m/Y');
+    }
+
 }

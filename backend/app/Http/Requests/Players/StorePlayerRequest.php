@@ -21,9 +21,8 @@ class StorePlayerRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['nullable', 'email', 'unique:players,email'],
             'birth_date' => ['required', 'date'],
-            'score' => ['nullable', 'integer', 'min:0'],
+            'address' => ['nullable', 'string'],
         ];
     }
 }
