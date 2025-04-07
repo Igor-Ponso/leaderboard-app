@@ -17,6 +17,7 @@ class Player extends Model
         'birth_date',
         'score',
         'address',
+        'qr_code_path',
     ];
 
     protected $casts = [

@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Jobs\GenerateUserQrJob;
+use App\Jobs\GeneratePlayerQrJob;
 use App\Models\Player;
 use Illuminate\Database\Eloquent\Collection;
 
@@ -28,7 +28,7 @@ class PlayerService
     {
         $player = Player::create($data);
 
-        GenerateUserQrJob::dispatch($player);
+        GeneratePlayerQrJob::dispatch($player);
 
         return $player->refresh();
     }
@@ -43,6 +43,11 @@ class PlayerService
     public function update(Player $player, array $data): Player
     {
         $player->update($data);
+
+        if (isset($data['address'])) {
+            GeneratePlayerQrJob::dispatch($player);
+        }
+
         return $player;
     }
 

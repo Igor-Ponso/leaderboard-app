@@ -77,7 +77,7 @@ const handleSubmit = async () => {
         autocomplete="off"
         @submit.prevent="handleSubmit"
       >
-        <el-form-item label="Name" prop="name">
+        <el-form-item label="Name" prop="name" >
           <el-input v-model="form.name" placeholder="Enter your full name" />
         </el-form-item>
 

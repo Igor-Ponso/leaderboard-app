@@ -4,8 +4,8 @@ import { usePlayersStore } from '@/stores/players'
 import PlayerModal from '@/components/Modals/PlayerModal.vue'
 import { ElMessageBox } from 'element-plus'
 import { Delete, Plus, Minus } from '@element-plus/icons-vue'
-import type { Player } from '@/stores/players'
 import { storeToRefs } from 'pinia'
+import { Player } from '@/interfaces/Player'
 
 const playerStore = usePlayersStore()
 const { loading } = storeToRefs(playerStore)

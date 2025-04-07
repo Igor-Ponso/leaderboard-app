@@ -3,22 +3,7 @@ import { ref } from 'vue'
 import { api } from '@/api/config'
 import { endpoints } from '@/api/paths'
 import { useToast } from 'vue-toastification'
-
-export interface Player {
-  hash: string
-  name: string
-  birth_date: string
-  score: number
-  postal_code: string
-  address: {
-    street: string
-    city: string
-    province: string
-    postal_code: string
-  }
-  created_at?: string
-  qr_code_path?: string
-}
+import { Player } from '@/interfaces/Player'
 
 export const usePlayersStore = defineStore('players', () => {
   const players = ref<Player[]>([])

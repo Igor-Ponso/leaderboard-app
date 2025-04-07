@@ -20,7 +20,10 @@ const goToRegister = () => router.push(pages.register.path)
           Welcome to <span class="text-[#eba408]">Leaderboard</span>
         </h1>
         <p class="pixel-font text-[clamp(1rem,3.5vw,1.25rem)] text-[#f0f0f0] font-mono">
-          Inspired by retro games. Built for modern challenges.
+          Interview Full Stack Developer Assignment.
+        </p>
+        <p class="pixel-font text-[clamp(1rem,3.5vw,1.25rem)] text-[#f0f0f0] font-mono">
+          Made by Igor Ponso
         </p>
         
         <div class="flex gap-4 justify-center md:justify-start flex-wrap">

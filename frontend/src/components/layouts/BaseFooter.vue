@@ -1,25 +1,16 @@
 <script setup lang="ts">
-import { toggleDark } from '@/composables';
-
+import { toggleDark, isDark } from '@/composables'
+import { Sunny, Moon } from '@element-plus/icons-vue'
 </script>
 
 <template>
-  <el-footer>
-    <ClusterL between center full-width>
-      <el-text>Spring Leaderboard</el-text>
-      <ClusterL>
-        <el-text>INFO NAME</el-text>
-        <el-text></el-text>
-        <el-button size="large" @click="toggleDark()" type="info" circle>
-          <i inline-flex i="dark:ep-moon ep-sunny" />
-        </el-button>
-      </ClusterL>
-    </ClusterL>
+  <el-footer height="60px" class="flex items-center justify-between px-8">
+    <el-text>Spring Leaderboard</el-text>
+
+    <el-button size="large" @click="toggleDark()" type="info" circle>
+      <el-icon>
+        <component :is="isDark ? Moon : Sunny" />
+      </el-icon>
+    </el-button>
   </el-footer>
 </template>
-
-<style lang="stylus">
-.ep-footer
-  display flex
-  padding-left: 5rem
-</style>

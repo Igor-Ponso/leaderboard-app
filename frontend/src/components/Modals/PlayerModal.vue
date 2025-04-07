@@ -238,7 +238,6 @@ const onPostalCodeInput = (val: string) => {
           <template #default="{ row }"> {{ row.score }} points </template>
         </el-table-column>
       </el-table>
-
       <div v-if="props.playerData?.qr_code_url" class="mt-4 text-center">
         <img
           :src="props.playerData.qr_code_url"
