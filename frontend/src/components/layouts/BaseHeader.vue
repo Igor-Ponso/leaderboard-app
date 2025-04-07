@@ -33,9 +33,9 @@ const currentPage = computed(() => {
       </template>
       <template #extra>
         <img
-          style="width: 150px"
-          src="../../assets/img/cruzeiro_logo.png"
-          alt="Cruzeiro logo"
+          style="width: 120px; padding-top: .7rem;"
+          src="../../assets/logos/leaderboard.png"
+          alt="Leaderboard App logo"
           fit
         />
       </template>

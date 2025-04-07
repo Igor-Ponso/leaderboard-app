@@ -9,7 +9,7 @@ import pinia from '@/stores'
 import router from '@/router'
 import i18n from './i18n'
 import { createHead } from '@vueuse/head'
-import Toast, { PluginOptions } from 'vue-toastification'
+import Toast, { PluginOptions, POSITION } from 'vue-toastification'
 import 'vue-toastification/dist/index.css'
 import { useDark } from '@vueuse/core'
 
@@ -24,7 +24,8 @@ const toastOptions: PluginOptions = {
   pauseOnFocusLoss: true,
   pauseOnHover: true,
   draggable: true,
-  draggablePercent: 0.7,
+  draggablePercent: 0.6,
+  position: POSITION.BOTTOM_LEFT,
   showCloseButtonOnHover: true,
   hideProgressBar: false,
   closeButton: 'button',

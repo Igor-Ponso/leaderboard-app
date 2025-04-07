@@ -19,7 +19,7 @@ const sortOrder = ref<'asc' | 'desc'>('desc')
 
 const filteredPlayers = computed(() => {
   return playerStore.players.filter((p) =>
-    p.name.toLowerCase().includes(search.value.toLowerCase())
+    p.name.toLowerCase().includes(search.value.toLowerCase()),
   )
 })
 
@@ -47,7 +47,6 @@ const openViewModal = (player: Player) => {
   showModal.value = true
 }
 
-
 const deletePlayer = async (player: Player) => {
   try {
     await ElMessageBox.confirm(
@@ -57,7 +56,7 @@ const deletePlayer = async (player: Player) => {
         confirmButtonText: 'Delete',
         cancelButtonText: 'Cancel',
         type: 'warning',
-      }
+      },
     )
     await playerStore.deletePlayer(player.hash)
   } catch (_) {
@@ -87,26 +86,47 @@ const toggleSort = (key: 'name' | 'score') => {
 onMounted(() => {
   playerStore.fetchAll()
 })
-
 </script>
 
 <template>
   <section class="max-w-[1200px] mx-auto p-4">
     <div class="flex justify-between items-center mb-4">
-      <el-input v-model="search" placeholder="Search by name" style="width: 200px" clearable />
+      <el-input
+        v-model="search"
+        placeholder="Search by name"
+        style="width: 200px"
+        clearable
+      />
 
       <el-button type="primary" @click="openCreateModal">+ Add User</el-button>
     </div>
 
-    <el-table border :data="sortedPlayers" stripe highlight-current-row style="width: 100%" v-loading="loading">
+    <el-table
+      border
+      :data="sortedPlayers"
+      stripe
+      highlight-current-row
+      style="width: 100%"
+      v-loading="loading"
+    >
       <el-table-column width="100" align="center">
         <template #default="{ row }">
-          <el-button size="small" type="danger" :icon="Delete" @click="() => deletePlayer(row)" />
-          
+          <el-button
+            size="small"
+            type="danger"
+            :icon="Delete"
+            @click="() => deletePlayer(row)"
+          />
         </template>
       </el-table-column>
 
-      <el-table-column prop="name" label="Name" sortable align="left" min-width="180">
+      <el-table-column
+        prop="name"
+        label="Name"
+        sortable
+        align="left"
+        min-width="180"
+      >
         <template #default="{ row }">
           <el-button link type="primary" @click="openViewModal(row)">
             {{ row.name }}
@@ -114,21 +134,38 @@ onMounted(() => {
         </template>
       </el-table-column>
 
-      <el-table-column label="Actions" header-align="center" align="center" width="160">
+      <el-table-column
+        label="Actions"
+        header-align="center"
+        align="center"
+        width="160"
+      >
         <template #default="{ row }">
-          <el-button size="small"  :icon="Plus" @click="() => increment(row)" />
-          <el-button size="small"  :icon="Minus" @click="() => decrement(row)" />
+          <el-button size="small" :icon="Plus" @click="() => increment(row)" />
+          <el-button size="small" :icon="Minus" @click="() => decrement(row)" />
         </template>
       </el-table-column>
 
-      <el-table-column label="Score" header-align="center" align="center" prop="score" width="120" sortable @click="toggleSort('score')">
+      <el-table-column
+        label="Score"
+        header-align="center"
+        align="center"
+        prop="score"
+        width="120"
+        sortable
+        @click="toggleSort('score')"
+      >
         <template #default="{ row }">
           <el-tag>{{ row.score }} points</el-tag>
         </template>
       </el-table-column>
     </el-table>
 
-    <PlayerModal v-model="showModal" :mode="modalMode" :player-data="selectedPlayer"
-      :on-refresh="playerStore.fetchAll" />
+    <PlayerModal
+      v-model="showModal"
+      :mode="modalMode"
+      :player-data="selectedPlayer"
+      :on-refresh="playerStore.fetchAll"
+    />
   </section>
 </template>

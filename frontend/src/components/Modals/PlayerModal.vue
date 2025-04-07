@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref, watch, reactive, computed } from 'vue'
-import { ElMessage } from 'element-plus'
 import type { FormInstance } from 'element-plus'
 import { usePlayersStore } from '@/stores/players'
 

@@ -3,15 +3,14 @@
     "baseUrl": ".",
     "target": "esnext",
     "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "bundler",
+    "module": "esnext",
+    "moduleResolution": "node",
     "strict": true,
     "jsx": "preserve",
     "sourceMap": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
     "esModuleInterop": true,
-    "typeRoots": ["./types", "./node_modules/@types"],
     "lib": [
       "ESNext",
       "DOM"
@@ -23,11 +22,6 @@
     },
     "skipLibCheck": true,
     "noEmit": true,
-    "types": [
-      "vite-plugin-pages/client",
-      "vite/client",
-      "vite-plugin-vue-layouts-next/client",
-    ]
   },
   "vueCompilerOptions": {
     "target": 3
@@ -36,8 +30,13 @@
     "src/**/*.ts",
     "src/**/*.d.ts",
     "src/**/*.tsx",
-    "src/**/*.vue"
+    "src/**/*.vue",
   ],
+  "types": [
+      "vite-plugin-vue-layouts/client",
+      "vite-plugin-pages/client",
+      "vite/client",
+    ],
   "exclude": [
     "dist",
     "node_modules"

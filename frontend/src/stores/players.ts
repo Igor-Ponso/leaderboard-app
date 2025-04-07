@@ -10,7 +10,7 @@ export interface Player {
   birth_date: string
   score: number
   created_at?: string
-  address?: string
+  address: string
 }
 
 export const usePlayersStore = defineStore('players', () => {
