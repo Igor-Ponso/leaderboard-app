@@ -40,6 +40,8 @@ The frontend and backend run independently, allowing full CORS separation and cl
 | 3        | `npm run scheduler` → Runs Laravel schedule every minute         |
 | 4        | `npm run frontend` → Vite dev server (run from project root `/`) |
 
+> Note: After the first `artisan migrate --seed`, _PlayerFactory_ with 30 new players will run automatically.
+
 ---
 
 ## NPM Scripts
