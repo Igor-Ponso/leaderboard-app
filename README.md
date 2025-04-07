@@ -9,6 +9,18 @@ This repository contains a full-stack application structured as a monorepo with 
 
 ---
 
+## Preview
+
+[Welcome + Preview](https://github.com/user-attachments/assets/dfa7c796-00fd-467a-98c7-79171d02c04b)
+
+[Macbook-Air-localhost-oalj88rb1pu7c_.webm](https://github.com/user-attachments/assets/19f1ced7-d7b2-48d0-bf71-937a5d41f581)
+
+[Macbook-Air-localhost--fnpb0k5nvi3q1.webm](https://github.com/user-attachments/assets/9d4079b2-50e0-4791-b2ec-6c07f02e2f07)
+
+[Macbook-Air-localhost-edb4sgaa1vgf-r.webm](https://github.com/user-attachments/assets/e18c9409-f2bc-4bf5-bc3c-b488920f9f29)
+
+---
+
 ## Folder Structure
 
 ```
