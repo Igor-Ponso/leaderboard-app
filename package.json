@@ -1,7 +1,7 @@
 {
     "name": "leaderboard-app",
     "scripts": {
-      "backend": "php backend/artisan serve --host=localhost --port=5000"
+      "backend": "php backend/artisan serve --host=localhost --port=5000",
+      "scheduler": "php backend/scheduler.php"
     }
   }
-  

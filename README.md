@@ -12,9 +12,9 @@ This repository contains a full-stack application structured as a monorepo with 
 
 ```
 /leaderboard-app
-├── frontend/   # Vite + Vue 3 + Pinia + Element Plus + UnoCSS
-├── backend/    # Laravel 12 API-only
-├── package.json (workspace root)
+├── frontend/       # Vite + Vue 3 + Pinia + Element Plus + UnoCSS
+├── backend/        # Laravel 12 API-only
+├── package.json    # Root npm scripts (scheduler, backend serve)
 ```
 
 The frontend and backend run independently, allowing full CORS separation and clean architecture.
@@ -29,25 +29,45 @@ The frontend and backend run independently, allowing full CORS separation and cl
 - MySQL 8+
 - Composer
 
-### 1. Frontend
-```bash
-cd frontend
-npm install
-npm run dev
+### Terminal Tabs Setup (Recommended)
+
+| Terminal | Command |
+|----------|---------|
+| 1 | `npm run backend` → Laravel dev server |
+| 2 | `php artisan queue:work` (run from `/backend`) |
+| 3 | `npm run scheduler` → Runs Laravel schedule every minute |
+| 4 | `cd frontend && npm run dev` → Vite dev server |
+
+---
+
+## NPM Scripts
+
+Defined in the root `package.json`:
+
+```json
+{
+  "scripts": {
+    "backend": "php backend/artisan serve --host=localhost --port=5000",
+    "scheduler": "php backend/scheduler.php"
+  }
+}
 ```
 
-### 2. Backend
+> `scheduler.php` is a PHP-based script that simulates a CRON scheduler in dev.
+
+---
+
+## Backend Setup
+
 ```bash
-cd ..
-npm run backend
+cd backend
+composer install
+cp .env.example .env
+php artisan key:generate
+php artisan migrate --seed
 ```
 
-This command is a shortcut for:
-```bash
-php artisan serve --host=localhost --port=5000
-```
-
-This is **required** due to CORS and cookie domain matching for CSRF protection.
+> Optionally, run `php artisan players:reset-scores` to clear scores or test manually.
 
 ---
 
@@ -62,10 +82,8 @@ DB_USERNAME=root
 DB_PASSWORD=your_password
 ```
 
-> ⚠️ You must configure your local MySQL credentials under `.env`.
-
 ### `frontend/public/env.js`
-Used to make API URL globally available at runtime (non-bundled):
+Used to make API URL globally available at runtime:
 ```js
 class DM_Environment {
   constructor() {
@@ -83,122 +101,85 @@ window.DM_ENV = new DM_Environment()
 
 | Plugin | Reason |
 |--------|--------|
-| `vite-plugin-pages` | File-based routing for clean route organization |
-| `vite-plugin-vue-layouts-next` | Supports dynamic layout injection per route (`blank`, `default`) |
-| `unplugin-auto-import` | Automatically imports Vue, Vue Router, and VueUse APIs |
-| `unplugin-vue-components` | Auto-imports Element Plus components |
-| `@unocss/preset-wind3` | UnoCSS utility-first setup with Tailwind-compatible syntax |
-| `vite-plugin-vue-devtools` | Enhanced Vue DevTools integration |
-| `@vueuse/head` | Head management for SEO and metadata |
-| `vue-i18n` | Internationalization support |
+| `vite-plugin-pages` | File-based routing |
+| `vite-plugin-vue-layouts-next` | Dynamic layouts |
+| `unplugin-auto-import` | Auto-imports Vue APIs |
+| `unplugin-vue-components` | Auto-imports Element Plus |
+| `@unocss/preset-wind3` | Tailwind-compatible UnoCSS |
+| `vite-plugin-vue-devtools` | DevTools integration |
+| `@vueuse/head` | Metadata control |
+| `vue-i18n` | i18n support |
 
 ---
 
-## 🧩 Plugins and Global Setup
+## Forms, Validation & Toasts
 
-### `main.ts`
-All plugins are initialized in a central location:
-```ts
-registerPlugins(app)
-app.use(ElementPlus, { locale: pt })
-```
-
-### `plugins/index.ts`
-Registers:
-- Router
-- Head
-- Pinia
-- i18n
-- Toastification (with options)
-- Enables dark mode via VueUse (`useDark()`)
+- Form logic via `el-form` + validation rules
+- Toasts via `vue-toastification`
+- ZIP code input uses API (`zippopotam.us/CA`) to autofill city and province based on first 3 characters
+- Postal code formatting is done with formatter/parser
 
 ---
 
-## 🎨 Styling
+## Backend Functionality
 
-- Global styles from Element Plus theme
-- UnoCSS using `@unocss/preset-wind3` (customizable utility classes)
-- Custom SCSS file used via `@use "@/styles/element/index.scss"`
+### Players CRUD
+- Uses model binding with hash
+- Validates address on create, but allows partial update for score
 
----
+### QR Code Generation
+- Address is formatted via a formatter class
+- QR code is stored in `/storage/app/public/qrcodes`
 
-## 🧠 Architecture Decisions
+### Scheduled Winner Job
+- Runs every 5 minutes
+- Stores winner only if there's a **unique** highest scorer
+- Stored in `winners` table with timestamp and score snapshot
 
-### Pages & Layouts
-
-- We use `vite-plugin-pages` for automatic routing.
-- Layouts are handled via `vite-plugin-vue-layouts-next`, supporting:
-  - `Default.vue` → standard with header/sidebar/footer
-  - `Blank.vue` → used for onboarding/auth routes
-
-### Auto Imports
-Handled via:
-- `unplugin-auto-import` for composables, router, vueuse, etc.
-- `unplugin-vue-components` for Element Plus components
-
-### API Calls
-- Axios instance configured at `src/api/config.ts`
-- Handles:
-  - Base URL
-  - Credentials/cookies
-  - CSRF token interception
-  - Error handling via Toasts
-
-### CSRF Handling
-- Automatically intercepted for unsafe HTTP methods
-- Calls `/sanctum/csrf-cookie` once and adds the token to headers via interceptor
+### Score Reset
+- `php artisan players:reset-scores` sets all scores to 0
 
 ---
 
-## ✅ Forms & Validation
+## Important Artisan Commands
 
-- Forms use `element-plus` components
-- Validation handled by `el-form` rules
-- Form pages use `<el-card>` for styling
-- `vue-toastification` handles notifications
-
----
-
-## 🔐 Authentication
-
-Auth routes:
-- `/auth/register`
-- `/auth/login`
-
-Auth APIs:
-- `POST /register`
-- `POST /login`
-
-Sessions and CSRF protection follow Laravel Sanctum pattern using cookies.
+| Command | Description |
+|---------|-------------|
+| `php artisan players:reset-scores` | Resets all scores |
+| `php artisan declare:winner` | Declares a new winner if only one top scorer exists |
+| `php artisan queue:work` | Runs queued jobs (e.g., QR code generation) |
 
 ---
 
-## 🧪 Testing
+## Production Notes
 
-Frontend tests (WIP) use:
-- `Vitest`
-- `@vue/test-utils`
+> **Important decisions intentionally skipped due to interview scope:**
 
-Linting/formatting:
+- No pagination or backend-filtering for players (would be necessary for large datasets)
+- No Docker setup, but project supports it easily
+- No automatic CI/CD pipelines
+
+---
+
+## Testing
+
 ```bash
-npm run lint
-npm run format
+php artisan test   # Laravel feature & unit tests
 ```
 
-Type checks:
-```bash
-npm run type-check
-```
+Tests include:
+- Player creation
+- Player update
+- Address validation
+- Score reset
+- Winner job edge cases
 
 ---
 
 ## 📌 Final Notes
 
-- The pixel art on the welcome page is just an aesthetic introduction.
-- The rest of the app follows clean, modern design with accessibility and responsiveness in mind.
-- Layouts, components, and API paths are centralized to ensure scalability and DRY architecture.
+- Project is intentionally clean and scoped to simulate real-world structure
+- Vue 3 + Laravel 12 integration follows best practices
+- API is RESTful and consistent with naming, status codes, and payloads
 
----
-
-For any further clarification, please review `vite.config.ts`, `main.ts`, and `src/plugins/index.ts` or contact the developer directly.
-
+Feel free to reach out if any clarification is needed.
