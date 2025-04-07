@@ -3,25 +3,34 @@
 namespace App\Http\Requests\Players;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Validation\Rule;
 
 class UpdatePlayerRequest extends FormRequest
 {
+    /**
+     * Determine if the user is authorized to make this request.
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, mixed>
+     */
     public function rules(): array
     {
         return [
             'name' => ['sometimes', 'string', 'max:255'],
             'birth_date' => ['sometimes', 'date'],
-            'score' => ['nullable', 'integer', 'min:0'],
-            'address.postal_code' => ['required', 'string', 'max:10'],
-            'address.street' => ['required', 'string', 'max:255'],
-            'address.city' => ['required', 'string', 'max:255'],
-            'address.province' => ['required', 'string', 'max:100'],
+            'score' => ['sometimes', 'integer'],
+
+            'address' => ['sometimes', 'array'],
+            'address.postal_code' => ['required_with:address', 'string'],
+            'address.street' => ['required_with:address', 'string'],
+            'address.city' => ['required_with:address', 'string'],
+            'address.province' => ['required_with:address', 'string'],
         ];
     }
 }
