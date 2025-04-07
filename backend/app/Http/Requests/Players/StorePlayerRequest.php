@@ -11,7 +11,7 @@ class StorePlayerRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return true; // Ajuste se usar policies
+        return true;
     }
 
     /**
@@ -22,7 +22,10 @@ class StorePlayerRequest extends FormRequest
         return [
             'name' => ['required', 'string', 'max:255'],
             'birth_date' => ['required', 'date'],
-            'address' => ['nullable', 'string'],
+            'address.postal_code' => ['required', 'string', 'max:10'],
+            'address.street' => ['required', 'string', 'max:255'],
+            'address.city' => ['required', 'string', 'max:255'],
+            'address.province' => ['required', 'string', 'max:100'],
         ];
     }
 }

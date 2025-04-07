@@ -21,7 +21,11 @@ class Player extends Model
 
     protected $casts = [
         'birth_date' => 'date',
+        'address' => 'array',
     ];
+
+    protected $appends = ['qr_code_url'];
+
 
     /**
      * Accessors and Mutators
@@ -42,5 +46,11 @@ class Player extends Model
         // if not, parse the date and format it
         return \Illuminate\Support\Carbon::parse($value)->format('d/m/Y');
     }
+
+    public function getQrCodeUrlAttribute(): ?string
+    {
+        return $this->qr_code_path ? asset('storage/' . $this->qr_code_path) : null;
+    }
+
 
 }

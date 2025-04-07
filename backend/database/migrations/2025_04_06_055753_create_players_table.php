@@ -15,7 +15,8 @@ return new class extends Migration {
             $table->uuid('hash')->unique();
             $table->string('name');
             $table->date('birth_date');
-            $table->string('address')->nullable();
+            $table->string('postal_code')->nullable();
+            $table->json('address')->nullable();
             $table->integer('score')->default(0);
             $table->timestamps();
             $table->softDeletes();

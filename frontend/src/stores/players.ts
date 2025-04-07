@@ -9,8 +9,15 @@ export interface Player {
   name: string
   birth_date: string
   score: number
+  postal_code: string
+  address: {
+    street: string
+    city: string
+    province: string
+    postal_code: string
+  }
   created_at?: string
-  address: string
+  qr_code_path?: string
 }
 
 export const usePlayersStore = defineStore('players', () => {
