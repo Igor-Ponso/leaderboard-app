@@ -2,6 +2,9 @@
 import { ref, watch, reactive, computed } from 'vue'
 import type { FormInstance } from 'element-plus'
 import { usePlayersStore } from '@/stores/players'
+import { useI18n } from 'vue-i18n'
+
+const { t: $t } = useI18n()
 
 const props = defineProps<{
   modelValue: boolean
@@ -42,15 +45,33 @@ const form = reactive({
 })
 
 const rules = {
-  name: [{ required: true, message: 'Name is required', trigger: 'blur' }],
+  name: [
+    {
+      required: true,
+      message: $t('playerModal.validations.name'),
+      trigger: 'blur',
+    },
+  ],
   birth_date: [
-    { required: true, message: 'Birth date is required', trigger: 'change' },
+    {
+      required: true,
+      message: $t('playerModal.validations.birthDate'),
+      trigger: 'change',
+    },
   ],
   'address.postal_code': [
-    { required: true, message: 'Postal code is required', trigger: 'blur' },
+    {
+      required: true,
+      message: $t('playerModal.validations.postalCode'),
+      trigger: 'blur',
+    },
   ],
   'address.street': [
-    { required: true, message: 'Street is required', trigger: 'blur' },
+    {
+      required: true,
+      message: $t('playerModal.validations.street'),
+      trigger: 'blur',
+    },
   ],
 }
 
@@ -76,7 +97,6 @@ watch(
     if (val && (isEdit.value || isView.value) && props.playerData) {
       const player = { ...props.playerData }
 
-      // Format birth_date to YYYY-MM-DD
       if (player.birth_date?.includes('/')) {
         const [day, month, year] = player.birth_date.split('/')
         player.birth_date = `${year}-${month}-${day}`
@@ -120,7 +140,6 @@ const switchToEdit = () => {
   viewAsEdit.value = true
 }
 
-// Watch ZIP only if editing/creating
 watch(
   () => form.address.postal_code,
   async (zip) => {
@@ -157,15 +176,21 @@ const onPostalCodeInput = (val: string) => {
   form.address.postal_code = formatted
 }
 </script>
+
 <template>
   <el-dialog
     :model-value="modelValue"
     @close="handleClose"
-    :title="isView ? form.name : isEdit ? `Edit ${form.name}` : 'Create Player'"
-     width="90vw"
-  class="max-w-[900px]"
+    :title="
+      isView
+        ? $t('playerModal.title.view', { name: form.name })
+        : isEdit
+          ? $t('playerModal.title.edit', { name: form.name })
+          : $t('playerModal.title.create')
+    "
+    width="90vw"
+    class="max-w-[900px]"
   >
-    <!-- CREATE / EDIT FORM -->
     <template v-if="!isView || viewAsEdit">
       <el-form
         ref="formRef"
@@ -174,29 +199,38 @@ const onPostalCodeInput = (val: string) => {
         label-position="top"
         autocomplete="off"
       >
-        <el-form-item label="Name" prop="name">
-          <el-input v-model="form.name" placeholder="Enter name" />
+        <el-form-item :label="$t('playerModal.form.name')" prop="name">
+          <el-input
+            v-model="form.name"
+            :placeholder="$t('playerModal.form.placeholders.name')"
+          />
         </el-form-item>
 
-        <el-form-item label="Birth Date" prop="birth_date">
+        <el-form-item
+          :label="$t('playerModal.form.birthDate')"
+          prop="birth_date"
+        >
           <el-date-picker
             v-model="form.birth_date"
             type="date"
-            placeholder="Select date"
+            :placeholder="$t('playerModal.form.placeholders.date')"
             style="width: 100%"
           />
         </el-form-item>
 
         <el-row :gutter="20">
           <el-col :xs="24" :md="5">
-            <el-form-item label="Postal Code" prop="address.postal_code">
+            <el-form-item
+              :label="$t('playerModal.form.postalCode')"
+              prop="address.postal_code"
+            >
               <el-tooltip
-                content="After entering the first 3 characters, city and province will be filled automatically"
+                :content="$t('playerModal.form.tooltip')"
                 placement="top"
               >
                 <el-input
                   v-model="form.address.postal_code"
-                  placeholder="e.g. V6C 1A1"
+                  :placeholder="$t('playerModal.form.placeholders.postal')"
                   maxlength="7"
                   @input="onPostalCodeInput"
                 />
@@ -205,63 +239,93 @@ const onPostalCodeInput = (val: string) => {
           </el-col>
 
           <el-col :xs="24" :md="17">
-            <el-form-item label="City">
+            <el-form-item :label="$t('playerModal.form.city')">
               <el-input v-model="form.address.city" readonly />
             </el-form-item>
           </el-col>
 
           <el-col :xs="24" :md="2">
-            <el-form-item label="Province">
+            <el-form-item :label="$t('playerModal.form.province')">
               <el-input v-model="form.address.province" readonly />
             </el-form-item>
           </el-col>
         </el-row>
 
-        <el-form-item label="Street" prop="address.street">
+        <el-form-item
+          :label="$t('playerModal.form.street')"
+          prop="address.street"
+        >
           <el-input
             v-model="form.address.street"
-            placeholder="Enter street address"
+            :placeholder="$t('playerModal.form.placeholders.street')"
           />
         </el-form-item>
       </el-form>
     </template>
 
-    <!-- VIEW MODE -->
     <template v-else-if="!viewAsEdit">
       <el-table :data="[form]" border style="width: 100%">
-        <el-table-column prop="birth_date" label="Birth Date" />
-        <el-table-column prop="address.postal_code" label="Postal Code" />
-        <el-table-column prop="address.street" label="Street" />
-        <el-table-column prop="address.city" label="City" />
-        <el-table-column prop="address.province" label="Province" />
-        <el-table-column prop="score" label="Score">
-          <template #default="{ row }"> {{ row.score }} points </template>
+        <el-table-column
+          prop="birth_date"
+          :label="$t('playerModal.table.birthDate')"
+        />
+        <el-table-column
+          prop="address.postal_code"
+          :label="$t('playerModal.table.postalCode')"
+        />
+        <el-table-column
+          prop="address.street"
+          :label="$t('playerModal.table.street')"
+        />
+        <el-table-column
+          prop="address.city"
+          :label="$t('playerModal.table.city')"
+        />
+        <el-table-column
+          prop="address.province"
+          :label="$t('playerModal.table.province')"
+        />
+        <el-table-column prop="score" :label="$t('playerModal.table.score')">
+          <template #default="{ row }">
+            {{ $t('playerModal.table.points', { score: row.score }) }}
+          </template>
         </el-table-column>
       </el-table>
+
       <div v-if="props.playerData?.qr_code_url" class="mt-4 text-center">
         <img
           :src="props.playerData.qr_code_url"
           alt="QR Code"
           class="w-[200px] mx-auto"
         />
-        <p class="text-xs text-gray-500 mt-2">QR Code to user address</p>
+        <p class="text-xs text-gray-500 mt-2">
+          {{ $t('playerModal.qr.label') }}
+        </p>
       </div>
     </template>
 
     <template #footer>
       <div class="flex justify-between items-center">
         <div v-if="isView && !viewAsEdit">
-          <el-button type="primary" @click="switchToEdit">Edit</el-button>
+          <el-button type="primary" @click="switchToEdit">
+            {{ $t('playerModal.buttons.edit') }}
+          </el-button>
         </div>
 
         <div class="flex justify-end gap-2 w-full">
-          <el-button @click="handleClose">Close</el-button>
+          <el-button @click="handleClose">
+            {{ $t('playerModal.buttons.close') }}
+          </el-button>
           <el-button
             v-if="!isView || viewAsEdit"
             type="primary"
             @click="handleSubmit"
           >
-            {{ isEdit || viewAsEdit ? 'Update' : 'Create' }}
+            {{
+              isEdit || viewAsEdit
+                ? $t('playerModal.buttons.update')
+                : $t('playerModal.buttons.create')
+            }}
           </el-button>
         </div>
       </div>

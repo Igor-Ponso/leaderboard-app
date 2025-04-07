@@ -11,6 +11,11 @@ class Player extends Model
 {
     use HasFactory, SoftDeletes, HasHash;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
     protected $fillable = [
         'name',
         'hash',
@@ -20,6 +25,11 @@ class Player extends Model
         'qr_code_path',
     ];
 
+    /**
+     * The attributes that should be cast to native types.
+     *
+     * @var array<string, string>
+     */
     protected $casts = [
         'birth_date' => 'date',
         'address' => 'array',
@@ -48,6 +58,11 @@ class Player extends Model
         return \Illuminate\Support\Carbon::parse($value)->format('d/m/Y');
     }
 
+    /**
+     * Get the QR code URL.
+     *
+     * @return string|null
+     */
     public function getQrCodeUrlAttribute(): ?string
     {
         return $this->qr_code_path ? asset('storage/' . $this->qr_code_path) : null;

@@ -1,18 +1,116 @@
 {
-  "app": {
-    "title": "Mon application",
-    "description": "Ceci est une application d'exemple."
+  "welcome": {
+    "title": "Welcome to {brand}",
+    "subtitle": "Interview Full Stack Developer Assignment.",
+    "credit": "Made by Igor Ponso",
+    "createAccount": "Create Account",
+    "login": "Login"
   },
-  "user": {
-    "welcome": "Bienvenue, {{name}} !",
-    "logout": "Déconnexion"
+  "login": {
+    "title": "Login to your account",
+    "subtitle": "Access your leaderboard and manage your progress",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "passwordRequired": "Password is required",
+    "forgotPassword": "Forgot Password?",
+    "loginButton": "Login",
+    "noAccount": "Don't have an account?",
+    "createAccount": "Create one"
   },
-  "error": {
-    "not_found": "Page non trouvée",
-    "server_error": "Erreur du serveur"
+  "register": {
+    "title": "Create your account",
+    "nameLabel": "Name",
+    "namePlaceholder": "Enter your full name",
+    "nameRequired": "Name is required",
+
+    "emailLabel": "Email",
+    "emailPlaceholder": "Enter your email",
+    "emailRequired": "Email is required",
+    "emailInvalid": "Invalid email",
+
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "passwordRequired": "Password is required",
+
+    "confirmPasswordLabel": "Confirm Password",
+    "confirmPasswordPlaceholder": "Confirm your password",
+    "confirmPasswordRequired": "Please confirm your password",
+    "confirmPasswordMismatch": "Passwords don't match",
+
+    "registerButton": "Register",
+    "alreadyHaveAccount": "Already have an account?",
+    "loginLink": "Log in"
   },
-  "button": {
-    "submit": "Soumettre",
-    "cancel": "Annuler"
+  "dashboard": {
+    "title": "Dashboard",
+    "summaryTitle": "Scores Summary",
+    "refreshButton": "Refresh",
+    "chartTitle": "Users Grouped by Score",
+    "seriesLabel": "Number of Users",
+    "dataLabelPrefix": "Avg"
+  },
+  "players": {
+    "searchPlaceholder": "Search by name",
+    "addUser": "Add User",
+    "deleteConfirmTitle": "Confirm Deletion",
+    "deleteConfirmMessage": "Are you sure you want to delete \"{name}\"?",
+    "deleteButton": "Delete",
+    "cancelButton": "Cancel",
+    "table": {
+      "name": "Name",
+      "score": "Score",
+      "actions": "Actions",
+      "points": "{score} points"
+    }
+  },
+  "playerModal": {
+    "title": {
+      "create": "Create Player",
+      "edit": "Edit {name}",
+      "view": "{name}"
+    },
+    "form": {
+      "name": "Name",
+      "birthDate": "Birth Date",
+      "postalCode": "Postal Code",
+      "street": "Street",
+      "city": "City",
+      "province": "Province",
+      "placeholders": {
+        "name": "Enter name",
+        "date": "Select date",
+        "postal": "e.g. V6C 1A1",
+        "street": "Enter street address"
+      },
+      "tooltip": "After entering the first 3 characters, city and province will be filled automatically"
+    },
+    "table": {
+      "birthDate": "Birth Date",
+      "postalCode": "Postal Code",
+      "street": "Street",
+      "city": "City",
+      "province": "Province",
+      "score": "Score",
+      "points": "{score} points"
+    },
+    "qr": {
+      "label": "QR Code to user address"
+    },
+    "buttons": {
+      "close": "Close",
+      "edit": "Edit",
+      "create": "Create",
+      "update": "Update"
+    },
+    "validations": {
+      "name": "Name is required",
+      "birthDate": "Birth date is required",
+      "postalCode": "Postal code is required",
+      "street": "Street is required"
+    }
   }
 }

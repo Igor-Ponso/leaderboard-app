@@ -1,0 +1,172 @@
+{
+  "info": {
+    "name": "Player API",
+    "description": "Collection of all endpoints for managing Players and Leaderboard.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Players",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/players",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Get Single Player",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/players/:hash",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players",
+            ":hash"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Create Player",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"John Doe\",\n  \"birth_date\": \"2000-01-01\",\n  \"address\": {\n    \"postal_code\": \"V6C 1A1\",\n    \"street\": \"123 Main St\",\n    \"city\": \"Vancouver\",\n    \"province\": \"BC\"\n  }\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/players",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Update Player",
+      "request": {
+        "method": "PUT",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          },
+          {
+            "key": "Content-Type",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"name\": \"Updated Name\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/api/players/:hash",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players",
+            ":hash"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Delete Player",
+      "request": {
+        "method": "DELETE",
+        "header": [
+          {
+            "key": "Authorization",
+            "value": "Bearer {{token}}",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{base_url}}/api/players/:hash",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "players",
+            ":hash"
+          ]
+        }
+      }
+    },
+    {
+      "name": "Leaderboard Summary",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/api/leaderboard-summary",
+          "host": [
+            "{{base_url}}"
+          ],
+          "path": [
+            "api",
+            "leaderboard-summary"
+          ]
+        }
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost"
+    },
+    {
+      "key": "token",
+      "value": "your_token_here"
+    }
+  ]
+}

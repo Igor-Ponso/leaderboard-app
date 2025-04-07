@@ -93,12 +93,13 @@ onMounted(() => {
     <div class="flex justify-between items-center mb-4">
       <el-input
         v-model="search"
-        placeholder="Search by name"
+        :placeholder="$t('players.searchPlaceholder')"
         style="width: 200px"
         clearable
       />
-
-      <el-button type="primary" @click="openCreateModal">+ Add User</el-button>
+      <el-button type="primary" @click="openCreateModal">
+        + {{ $t('players.addUser') }}
+      </el-button>
     </div>
 
     <el-table
@@ -109,6 +110,7 @@ onMounted(() => {
       style="width: 100%"
       v-loading="loading"
     >
+      <!-- Delete Button -->
       <el-table-column width="100" align="center">
         <template #default="{ row }">
           <el-button
@@ -120,9 +122,10 @@ onMounted(() => {
         </template>
       </el-table-column>
 
+      <!-- Name -->
       <el-table-column
         prop="name"
-        label="Name"
+        :label="$t('players.table.name')"
         sortable
         align="left"
         min-width="180"
@@ -134,8 +137,9 @@ onMounted(() => {
         </template>
       </el-table-column>
 
+      <!-- Actions -->
       <el-table-column
-        label="Actions"
+        :label="$t('players.table.actions')"
         header-align="center"
         align="center"
         width="160"
@@ -146,8 +150,9 @@ onMounted(() => {
         </template>
       </el-table-column>
 
+      <!-- Score -->
       <el-table-column
-        label="Score"
+        :label="$t('players.table.score')"
         header-align="center"
         align="center"
         prop="score"
@@ -156,7 +161,9 @@ onMounted(() => {
         @click="toggleSort('score')"
       >
         <template #default="{ row }">
-          <el-tag>{{ row.score }} points</el-tag>
+          <el-tag>{{
+            $t('players.table.points', { score: row.score })
+          }}</el-tag>
         </template>
       </el-table-column>
     </el-table>

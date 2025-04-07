@@ -5,6 +5,10 @@ import type { FormInstance } from 'element-plus'
 import { pages } from '@/api/paths'
 import { useAuthStore } from '@/stores/auth'
 
+import { useI18n } from 'vue-i18n'
+
+const { t: $t } = useI18n()
+
 const router = useRouter()
 const authStore = useAuthStore()
 const formRef = ref<FormInstance>()
@@ -16,19 +20,23 @@ const form = reactive({
 
 const rules = {
   email: [
-    { required: true, message: 'Email is required', trigger: 'blur' },
-    { type: 'email', message: 'Invalid email', trigger: ['blur', 'change'] },
+    { required: true, message: $t('login.emailRequired'), trigger: 'blur' },
+    {
+      type: 'email',
+      message: $t('login.emailInvalid'),
+      trigger: ['blur', 'change'],
+    },
   ],
   password: [
-    { required: true, message: 'Password is required', trigger: 'blur' },
+    { required: true, message: $t('login.passwordRequired'), trigger: 'blur' },
   ],
 }
 
 const handleSubmit = async () => {
   formRef.value?.validate(async (valid) => {
     if (valid) {
-        await authStore.login(form)
-        router.push(pages.dashboard.path)
+      await authStore.login(form)
+      router.push(pages.dashboard.path)
     }
   })
 }
@@ -40,12 +48,9 @@ const handleSubmit = async () => {
   >
     <el-card class="w-full max-w-md shadow-xl">
       <div class="text-center space-y-2 mb-6">
-        <h2 class="text-xl font-bold pixel-font">Login to your account</h2>
-        <p class="text-sm text-gray-400">
-          Access your leaderboard and manage your progress
-        </p>
+        <h2 class="text-xl font-bold pixel-font">{{ $t('login.title') }}</h2>
+        <p class="text-sm text-gray-400">{{ $t('login.subtitle') }}</p>
       </div>
-
       <el-form
         :model="form"
         :rules="rules"
@@ -54,42 +59,45 @@ const handleSubmit = async () => {
         autocomplete="off"
         @submit.prevent="handleSubmit"
       >
-        <el-form-item label="Email" prop="email">
-          <el-input v-model="form.email" placeholder="Enter your email" />
+        <el-form-item :label="$t('login.emailLabel')" prop="email">
+          <el-input
+            v-model="form.email"
+            :placeholder="$t('login.emailPlaceholder')"
+          />
         </el-form-item>
 
-        <el-form-item label="Password" prop="password">
+        <el-form-item :label="$t('login.passwordLabel')" prop="password">
           <el-input
             v-model="form.password"
-            placeholder="Enter your password"
+            :placeholder="$t('login.passwordPlaceholder')"
             show-password
           />
         </el-form-item>
 
         <div class="flex justify-between items-center mt-2 mb-4">
-          <el-link type="info" :underline="false">Forgot Password?</el-link>
+          <el-link type="info" :underline="false">
+            {{ $t('login.forgotPassword') }}
+          </el-link>
         </div>
 
-        <el-button
-          type="primary"
-          class="w-full"
-          @click="handleSubmit"
-        >
-          Login
+        <el-button type="primary" class="w-full" @click="handleSubmit">
+          {{ $t('login.loginButton') }}
         </el-button>
 
         <p class="mt-4 text-center text-sm text-gray-400">
-          Don't have an account?
+          {{ $t('login.noAccount') }}
           <el-link
             :href="pages.register.path"
             :router="true"
             type="warning"
             class="ml-1"
           >
-            Create one
+            {{ $t('login.createAccount') }}
           </el-link>
         </p>
       </el-form>
+
+      <LanguageSwitcher class="mt-8" />
     </el-card>
   </section>
 </template>

@@ -9,6 +9,11 @@ class Winner extends Model
 {
     public $timestamps = false;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array<string>
+     */
     protected $fillable = ['player_id', 'score', 'created_at'];
 
     /**

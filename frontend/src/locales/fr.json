@@ -1,18 +1,116 @@
 {
-  "app": {
-    "title": "My Application",
-    "description": "This is a sample application."
+  "welcome": {
+    "title": "Bienvenue sur {brand}",
+    "subtitle": "Test technique pour développeur Full Stack.",
+    "credit": "Créé par Igor Ponso",
+    "createAccount": "Créer un compte",
+    "login": "Connexion"
   },
-  "user": {
-    "welcome": "Welcome, {{name}}!",
-    "logout": "Logout"
+  "login": {
+    "title": "Connectez-vous à votre compte",
+    "subtitle": "Accédez à votre classement et gérez vos progrès",
+    "emailLabel": "Email",
+    "emailPlaceholder": "Entrez votre email",
+    "emailRequired": "L'e-mail est requis",
+    "emailInvalid": "E-mail invalide",
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "passwordRequired": "Le mot de passe est requis",
+    "forgotPassword": "Mot de passe oublié ?",
+    "loginButton": "Connexion",
+    "noAccount": "Vous n'avez pas de compte ?",
+    "createAccount": "Créez-en un"
   },
-  "error": {
-    "not_found": "Page not found",
-    "server_error": "Server error"
+  "register": {
+    "title": "Créez votre compte",
+    "nameLabel": "Nom",
+    "namePlaceholder": "Entrez votre nom complet",
+    "nameRequired": "Le nom est requis",
+
+    "emailLabel": "Email",
+    "emailPlaceholder": "Entrez votre email",
+    "emailRequired": "L'e-mail est requis",
+    "emailInvalid": "E-mail invalide",
+
+    "passwordLabel": "Mot de passe",
+    "passwordPlaceholder": "Entrez votre mot de passe",
+    "passwordRequired": "Le mot de passe est requis",
+
+    "confirmPasswordLabel": "Confirmer le mot de passe",
+    "confirmPasswordPlaceholder": "Confirmez votre mot de passe",
+    "confirmPasswordRequired": "Veuillez confirmer votre mot de passe",
+    "confirmPasswordMismatch": "Les mots de passe ne correspondent pas",
+
+    "registerButton": "S'inscrire",
+    "alreadyHaveAccount": "Vous avez déjà un compte ?",
+    "loginLink": "Se connecter"
   },
-  "button": {
-    "submit": "Submit",
-    "cancel": "Cancel"
+  "dashboard": {
+    "title": "Tableau de bord",
+    "summaryTitle": "Résumé des scores",
+    "refreshButton": "Rafraîchir",
+    "chartTitle": "Utilisateurs groupés par score",
+    "seriesLabel": "Nombre d'utilisateurs",
+    "dataLabelPrefix": "Moy"
+  },
+  "players": {
+    "searchPlaceholder": "Rechercher par nom",
+    "addUser": "Ajouter un utilisateur",
+    "deleteConfirmTitle": "Confirmer la suppression",
+    "deleteConfirmMessage": "Voulez-vous vraiment supprimer \"{name}\" ?",
+    "deleteButton": "Supprimer",
+    "cancelButton": "Annuler",
+    "table": {
+      "name": "Nom",
+      "score": "Score",
+      "actions": "Actes",
+      "points": "{score} points"
+    }
+  },
+  "playerModal": {
+    "title": {
+      "create": "Créer un joueur",
+      "edit": "Modifier {name}",
+      "view": "{name}"
+    },
+    "form": {
+      "name": "Nom",
+      "birthDate": "Date de naissance",
+      "postalCode": "Code postal",
+      "street": "Rue",
+      "city": "Ville",
+      "province": "Province",
+      "placeholders": {
+        "name": "Entrez le nom",
+        "date": "Sélectionnez la date",
+        "postal": "ex : V6C 1A1",
+        "street": "Entrez l'adresse de la rue"
+      },
+      "tooltip": "Après avoir saisi les 3 premiers caractères, la ville et la province seront remplies automatiquement"
+    },
+    "table": {
+      "birthDate": "Date de naissance",
+      "postalCode": "Code postal",
+      "street": "Rue",
+      "city": "Ville",
+      "province": "Province",
+      "score": "Score",
+      "points": "{score} points"
+    },
+    "qr": {
+      "label": "Code QR vers l'adresse de l'utilisateur"
+    },
+    "buttons": {
+      "close": "Fermer",
+      "edit": "Modifier",
+      "create": "Créer",
+      "update": "Mettre à jour"
+    },
+    "validations": {
+      "name": "Le nom est requis",
+      "birthDate": "La date de naissance est requise",
+      "postalCode": "Le code postal est requis",
+      "street": "La rue est requise"
+    }
   }
 }
