@@ -179,7 +179,7 @@ window.DM_ENV = new DM_Environment();
 
 ## Production Notes
 
-> **Important decisions intentionally skipped due to interview scope:**
+> **Important decisions intentionally skipped due to time scope:**
 
 - No pagination or backend-filtering for players (would be necessary for large datasets)
 - No Docker setup, but project supports it easily
