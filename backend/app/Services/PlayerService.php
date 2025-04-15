@@ -22,15 +22,20 @@ class PlayerService
      * Create a new player and dispatch QR code generation job.
      *
      * @param array<string, mixed> $data
-     * @return Player
+     * @return Collection<int, Player>
      */
-    public function create(array $data): Player
+    public function create(array $data): Collection|string
     {
+
+        if ($this->exists($data['name'])) {
+            return 'Player name already exists.';
+        }
+
         $player = Player::create($data);
 
         GeneratePlayerQrJob::dispatch($player);
 
-        return $player->refresh();
+        return Player::latest()->get();
     }
 
     /**
@@ -38,9 +43,9 @@ class PlayerService
      *
      * @param Player $player
      * @param array<string, mixed> $data
-     * @return Player
+     * @return Collection<int, Player>
      */
-    public function update(Player $player, array $data): Player
+    public function update(Player $player, array $data): Collection
     {
         $player->update($data);
 
@@ -48,7 +53,7 @@ class PlayerService
             GeneratePlayerQrJob::dispatch($player);
         }
 
-        return $player;
+        return Player::latest()->get();
     }
 
     /**
@@ -60,5 +65,15 @@ class PlayerService
     public function delete(Player $player): void
     {
         $player->delete();
+    }
+
+    /**
+     * Check if a player with the given name exists.
+     * @param string $name
+     * @return bool
+     */
+    public function exists(string $name): bool
+    {
+        return Player::where('name', $name)->exists();
     }
 }

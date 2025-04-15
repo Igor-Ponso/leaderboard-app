@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n'
 import { ref, watchEffect } from 'vue'
+import { useI18n } from 'vue-i18n'
 
 const { locale, availableLocales } = useI18n()
 
@@ -27,7 +27,7 @@ watchEffect(() => {
     size="small"
     class="flex gap-2 items-center"
   >
-    <el-radio-button label="en">EN</el-radio-button>
-    <el-radio-button label="fr">FR</el-radio-button>
+    <el-radio-button value="en">EN</el-radio-button>
+    <el-radio-button value="fr">FR</el-radio-button>
   </el-radio-group>
 </template>

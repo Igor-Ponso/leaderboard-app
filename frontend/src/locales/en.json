@@ -109,6 +109,8 @@
     "validations": {
       "name": "Name is required",
       "birthDate": "Birth date is required",
+      "noFutureDate": "Birth date cannot be in the future",
+      "ageLimit": "Player must be at least 18 years old",
       "postalCode": "Postal code is required",
       "street": "Street is required"
     }

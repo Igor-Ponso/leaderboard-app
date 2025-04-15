@@ -1,9 +1,9 @@
-import { defineStore } from 'pinia'
-import { ref } from 'vue'
 import { api } from '@/api/config'
 import { endpoints } from '@/api/paths'
-import { useToast } from 'vue-toastification'
 import { Player } from '@/interfaces/Player'
+import { defineStore } from 'pinia'
+import { ref } from 'vue'
+import { useToast } from 'vue-toastification'
 
 export const usePlayersStore = defineStore('players', () => {
   const players = ref<Player[]>([])
@@ -24,9 +24,13 @@ export const usePlayersStore = defineStore('players', () => {
   const createPlayer = async (payload: Omit<Player, 'hash'>) => {
     try {
       const { data } = await api.post(endpoints.players.create, payload)
-      players.value.push(data)
-      useToast().success('Player created successfully')
-      fetchAll() // Refresh the list after creating a player
+
+      if (!data.hash) {
+        useToast().error('Player was not created')
+      } else {
+        players.value.push(data)
+        useToast().success('Player created successfully')
+      }
       return data
     } catch (error: any) {
       useToast().error(
@@ -67,19 +71,18 @@ export const usePlayersStore = defineStore('players', () => {
   }
 
   const incrementScore = async (hash: string) => {
-    const player = players.value.find(p => p.hash === hash)
+    const player = players.value.find((p) => p.hash === hash)
     if (!player) return
-  
+
     await updatePlayer(hash, { score: player.score + 1 })
   }
-  
+
   const decrementScore = async (hash: string) => {
-    const player = players.value.find(p => p.hash === hash)
+    const player = players.value.find((p) => p.hash === hash)
     if (!player) return
-  
+
     await updatePlayer(hash, { score: player.score - 1 })
   }
-  
 
   return {
     players,

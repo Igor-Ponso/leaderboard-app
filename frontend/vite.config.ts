@@ -1,20 +1,20 @@
-import vue from '@vitejs/plugin-vue'
-import { defineConfig } from 'vite'
-import Pages from 'vite-plugin-pages'
 import VueI18nPlugin from '@intlify/unplugin-vue-i18n/vite'
+import vue from '@vitejs/plugin-vue'
 import path from 'node:path'
-import Inspect from 'vite-plugin-inspect'
-import Layouts from 'vite-plugin-vue-layouts-next'
-import AutoImport from 'unplugin-auto-import/vite'
-import Components from 'unplugin-vue-components/vite'
-import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
-import Unocss from 'unocss/vite'
 import {
   presetAttributify,
   presetIcons,
   transformerDirectives,
   transformerVariantGroup,
 } from 'unocss'
+import Unocss from 'unocss/vite'
+import AutoImport from 'unplugin-auto-import/vite'
+import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import Components from 'unplugin-vue-components/vite'
+import { defineConfig } from 'vite'
+import Inspect from 'vite-plugin-inspect'
+import Pages from 'vite-plugin-pages'
+import Layouts from 'vite-plugin-vue-layouts-next'
 
 import { presetWind3 } from '@unocss/preset-wind3'
 
@@ -70,7 +70,7 @@ export default defineConfig({
     }),
     Unocss({
       presets: [
-        presetWind3(), // 🔁 novo preset oficial
+        presetWind3(),
         presetAttributify(),
         presetIcons({
           scale: 1.2,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, watch, reactive, computed } from 'vue'
-import type { FormInstance } from 'element-plus'
 import { usePlayersStore } from '@/stores/players'
+import type { FormInstance } from 'element-plus'
+import { computed, reactive, ref, watch } from 'vue'
 import { useI18n } from 'vue-i18n'
 
 const { t: $t } = useI18n()
@@ -44,7 +44,7 @@ const form = reactive({
   },
 })
 
-const rules = {
+const rules = computed(() => ({
   name: [
     {
       required: true,
@@ -56,6 +56,10 @@ const rules = {
     {
       required: true,
       message: $t('playerModal.validations.birthDate'),
+      trigger: 'change',
+    },
+    {
+      validator: validateBirthDateMinAge(18),
       trigger: 'change',
     },
   ],
@@ -73,7 +77,7 @@ const rules = {
       trigger: 'blur',
     },
   ],
-}
+}))
 
 const isEdit = computed(() => props.mode === 'edit')
 const isView = computed(() => props.mode === 'view')
@@ -175,6 +179,39 @@ const onPostalCodeInput = (val: string) => {
       : cleaned
   form.address.postal_code = formatted
 }
+
+const validateBirthDateMinAge = (minAge: number) => {
+  const { t: $t } = useI18n()
+
+  return (rule: any, value: string, callback: any) => {
+    if (!value) return callback() // Se for vazio, o validador 'required' cuida
+
+    const birthDate = new Date(value)
+    if (isNaN(birthDate.getTime())) {
+      return callback(new Error($t('playerModal.validations.invalidDate')))
+    }
+
+    const today = new Date()
+
+    if (birthDate > today) {
+      return callback(new Error($t('playerModal.validations.noFutureDate')))
+    }
+
+    const age = today.getFullYear() - birthDate.getFullYear()
+    const month = today.getMonth() - birthDate.getMonth()
+    const day = today.getDate() - birthDate.getDate()
+
+    const isOldEnough =
+      age > minAge ||
+      (age === minAge && (month > 0 || (month === 0 && day >= 0)))
+
+    if (!isOldEnough) {
+      return callback(new Error($t('playerModal.validations.ageLimit')))
+    }
+
+    return callback()
+  }
+}
 </script>
 
 <template>
@@ -213,6 +250,7 @@ const onPostalCodeInput = (val: string) => {
           <el-date-picker
             v-model="form.birth_date"
             type="date"
+            :disabled-date="(date: any) => date.getTime() > Date.now()"
             :placeholder="$t('playerModal.form.placeholders.date')"
             style="width: 100%"
           />
